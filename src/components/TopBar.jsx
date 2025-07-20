@@ -18,7 +18,7 @@ export default function TopBar() {
   return (
     <header className="flex items-center justify-between p-4 bg-white shadow">
       <div>
-        <h1 className="text-2xl font-bold">💰 KES {totalSaved}</h1>
+        <h1 className="text-2xl font-bold"> KES {totalSaved}</h1>
         <p className="text-sm text-gray-500">{activeCount} active goals</p>
       </div>
       <div className="italic text-gray-600">“{quote}”</div>

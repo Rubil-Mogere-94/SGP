@@ -17,6 +17,15 @@
       "savedAmount": 6000,
       "createdAt": "2025-07-20T11:37:09.845Z",
       "id": 2
+    },
+    {
+      "name": "Trip to Mozambique",
+      "category": "Business trip",
+      "targetAmount": 10000000,
+      "deadline": "2029-11-30",
+      "savedAmount": 1010500,
+      "createdAt": "2025-07-20T13:36:05.219Z",
+      "id": 3
     }
   ],
   "deposits": [
@@ -127,6 +136,24 @@
       "amount": 1000,
       "timestamp": "2025-07-20T12:47:03.737Z",
       "id": 18
+    },
+    {
+      "goalId": 3,
+      "amount": 10000,
+      "timestamp": "2025-07-20T13:36:23.445Z",
+      "id": 19
+    },
+    {
+      "goalId": 3,
+      "amount": 500,
+      "timestamp": "2025-07-20T13:36:31.897Z",
+      "id": 20
+    },
+    {
+      "goalId": 3,
+      "amount": 1000000,
+      "timestamp": "2025-07-20T13:36:49.713Z",
+      "id": 21
     }
   ]
 }
