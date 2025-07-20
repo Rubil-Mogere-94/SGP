@@ -22,7 +22,8 @@
     "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.0",
-    "recharts": "^2.5.0"
+    "recharts": "^2.5.0",
+    "json-server": "^0.17.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.0.0",
