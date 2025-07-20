@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "vercel-build": "vite build",
     "preview": "vite preview",
     "serve:api": "json-server --watch db.json --port 3000",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
