@@ -1,4 +1,6 @@
-const BASE = 'http://localhost:3000';
+const BASE = import.meta.env.DEV
+  ? 'http://localhost:3000'
+  : '';
 
 async function handleResponse(res) {
   if (!res.ok) throw new Error(await res.text());
