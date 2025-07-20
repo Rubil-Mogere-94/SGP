@@ -3,7 +3,6 @@
 [![Vite](https://img.shields.io/badge/Vite-4.5.14-blue)]()
 [![React](https://img.shields.io/badge/React-18.3.1-blue)]()
 [![Tailwind](https://img.shields.io/badge/TailwindCSS-3.4.17-green)]()
-[![Coverage](coverage/coverage-summary.json)]()
 
 A savings goal manager with:
 
