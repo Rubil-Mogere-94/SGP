@@ -59,7 +59,7 @@ Follow these steps to set up the Smart Goal Planner on your local machine:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/smart-goal-planner.git
+    git clone https://github.com/Rubil-Mogere-94/smart-goal.git
     cd smart-goal-planner
     ```
 
