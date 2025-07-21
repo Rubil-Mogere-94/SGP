@@ -51,6 +51,12 @@ src/
 └── __tests__/              # unit & integration tests
 
 ```
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) installed on your computer
+- VS Code or any code editor
+
 ## Installation
 
 Follow these steps to set up the Smart Goal Planner on your local machine:
@@ -80,3 +86,6 @@ Follow these steps to set up the Smart Goal Planner on your local machine:
     ```
     http://localhost:5173
     ```
+
+## Author
+Mogere Rubil
