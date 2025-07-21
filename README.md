@@ -52,7 +52,7 @@ src/
 │   └── Settings.jsx
 └── __tests__/              # unit & integration tests
 
-
+```
 ## Installation
 
 Follow these steps to set up the Smart Goal Planner on your local machine:
