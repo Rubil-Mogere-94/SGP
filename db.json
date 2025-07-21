@@ -26,6 +26,33 @@
       "savedAmount": 1010500,
       "createdAt": "2025-07-20T13:36:05.219Z",
       "id": 3
+    },
+    {
+      "name": "mombasa bussines trip",
+      "category": "confidential",
+      "targetAmount": 1000000,
+      "deadline": "2040-05-05",
+      "savedAmount": 100000,
+      "createdAt": "2025-07-21T08:56:17.442Z",
+      "id": 4
+    },
+    {
+      "name": "SUV car purchase",
+      "category": "luxary",
+      "targetAmount": 15000000,
+      "deadline": "2030-01-01",
+      "savedAmount": 1000000,
+      "createdAt": "2025-07-21T09:03:39.717Z",
+      "id": 5
+    },
+    {
+      "name": "Primary residence",
+      "category": "Home",
+      "targetAmount": 50000000,
+      "deadline": "2035-01-01",
+      "savedAmount": 1050000,
+      "createdAt": "2025-07-21T09:05:14.008Z",
+      "id": 6
     }
   ],
   "deposits": [
@@ -178,6 +205,36 @@
       "amount": 1000,
       "timestamp": "2025-07-20T13:46:15.731Z",
       "id": 25
+    },
+    {
+      "goalId": 4,
+      "amount": 100000,
+      "timestamp": "2025-07-21T08:56:40.214Z",
+      "id": 26
+    },
+    {
+      "goalId": 5,
+      "amount": 1000000,
+      "timestamp": "2025-07-21T09:03:57.801Z",
+      "id": 27
+    },
+    {
+      "goalId": 6,
+      "amount": 200000,
+      "timestamp": "2025-07-21T09:05:34.545Z",
+      "id": 28
+    },
+    {
+      "goalId": 6,
+      "amount": 500000,
+      "timestamp": "2025-07-21T09:05:57.402Z",
+      "id": 29
+    },
+    {
+      "goalId": 6,
+      "amount": 350000,
+      "timestamp": "2025-07-21T09:06:20.338Z",
+      "id": 30
     }
   ]
 }
