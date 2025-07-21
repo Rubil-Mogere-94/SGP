@@ -7,11 +7,9 @@
 A savings goal manager with:
 
 - **CRUD** Goals (Create, Read, Update, Delete)  
-- **Optimistic** Deposits (+ server‑patch to persist)  
-- **Undo/Redo** last action  
+- **Optimistic** Deposits (+ server‑patch to persist)   
 - **Visualizations**: Donut, Bar, HeatMap, Health Table  
-- **CSV Export** of transactions  
-- **Dark Mode** toggle & accessibility  
+- **CSV Export** of transactions    
 - **Neumorphism & Glassmorphism** UI  
 - **Unit & Integration Tests** (≥ 80 % coverage)  
 - **Linting & CI**: ESLint, Prettier, Husky, GitHub Actions
