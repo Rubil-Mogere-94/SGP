@@ -22,10 +22,6 @@ export default function TopBar() {
         <p className="text-sm text-gray-500">{activeCount} active goals</p>
       </div>
       <div className="italic text-gray-600">“{quote}”</div>
-      <div>
-        <button disabled={!state.canUndo} onClick={useGoals().actions.undo} aria-label="Undo">↺</button>
-        <button disabled={!state.canRedo} onClick={useGoals().actions.redo} aria-label="Redo">↻</button>
-      </div>
     </header>
   );
 }

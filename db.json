@@ -14,7 +14,7 @@
       "category": "Fun",
       "targetAmount": 10000,
       "deadline": "2025-07-25",
-      "savedAmount": 6000,
+      "savedAmount": 10000,
       "createdAt": "2025-07-20T11:37:09.845Z",
       "id": 2
     },
@@ -154,6 +154,30 @@
       "amount": 1000000,
       "timestamp": "2025-07-20T13:36:49.713Z",
       "id": 21
+    },
+    {
+      "goalId": 2,
+      "amount": 1000,
+      "timestamp": "2025-07-20T13:46:02.448Z",
+      "id": 22
+    },
+    {
+      "goalId": 2,
+      "amount": 1000,
+      "timestamp": "2025-07-20T13:46:07.425Z",
+      "id": 23
+    },
+    {
+      "goalId": 2,
+      "amount": 1000,
+      "timestamp": "2025-07-20T13:46:11.785Z",
+      "id": 24
+    },
+    {
+      "goalId": 2,
+      "amount": 1000,
+      "timestamp": "2025-07-20T13:46:15.731Z",
+      "id": 25
     }
   ]
 }

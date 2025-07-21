@@ -51,3 +51,34 @@ src/
 │   ├── Overview.jsx
 │   └── Settings.jsx
 └── __tests__/              # unit & integration tests
+
+
+## Installation
+
+Follow these steps to set up the Smart Goal Planner on your local machine:
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/smart-goal-planner.git
+    cd smart-goal-planner
+    ```
+
+2. Install dependencies:
+    ```bash
+    pnpm install
+    ```
+
+3. Start mock api:
+    ```bash
+   pnpm run serve:api
+    ```
+
+4. Start server api:
+    ```bash
+   pnpm run dev
+    ```
+
+5. Open the application in your browser:
+    ```
+    http://localhost:5173
+    ```
