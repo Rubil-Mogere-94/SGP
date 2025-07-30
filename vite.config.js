@@ -8,7 +8,8 @@ export default defineConfig({
     alias: { '@': path.resolve(__dirname, './src') }
   },
   server: { port: 5173 },
-  define: {
-    'process.env': process.env 
+  base: '/',  // Add this line for production deployment
+  build: {
+    outDir: 'dist'  // Ensure this matches Vercel's expectations
   }
 });

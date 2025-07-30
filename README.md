@@ -65,24 +65,18 @@ Follow these steps to set up the Smart Goal Planner on your local machine:
     ```bash
     git clone https://github.com/Rubil-Mogere-94/smart-goal.git
     cd smart-goal-planner
+    
     ```
-
-2. Install dependencies:
-    ```bash
-    pnpm install
-    ```
-
-3. Start mock api:
-    ```bash
-   pnpm run serve:api
-    ```
-
-4. Start server api:
+2. install dependancies
+```
+pnpm i
+```
+3. Start app  :
     ```bash
    pnpm run dev
     ```
 
-5. Open the application in your browser:
+4. Open the application in your browser:
     ```
     http://localhost:5173
     ```
