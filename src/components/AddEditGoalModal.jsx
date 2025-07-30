@@ -8,7 +8,6 @@ export default function AddEditGoalModal() {
   const { modalOpen, editingGoal } = state.ui;
   const [form, setForm] = useState(emptyForm);
 
-  // initialize form when modal opens
   useEffect(() => {
     if (modalOpen) {
       if (editingGoal) {
@@ -28,20 +27,29 @@ export default function AddEditGoalModal() {
   const handleSubmit = e => {
     e.preventDefault();
     const { id, ...data } = form;
+    
     if (
       !form.name ||
       !form.category ||
       form.targetAmount <= 0 ||
       new Date(form.deadline) < new Date()
-    )
+    ) {
       return;
+    }
+    
     const payload = { ...data, targetAmount: +data.targetAmount };
-    if (id) actions.updateGoal(id, payload);
-    else actions.addGoal(payload);
+    
+    if (id) {
+      actions.updateGoal(id, payload);
+    } else {
+      actions.addGoal(payload);
+    }
+    
     actions.closeModal();
   };
 
   if (!modalOpen) return null;
+  
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <form
@@ -69,11 +77,10 @@ export default function AddEditGoalModal() {
           type="number"
           placeholder="Target Amount"
           value={form.targetAmount}
-          onChange={e =>
-            setForm({ ...form, targetAmount: e.target.value })
-          }
+          onChange={e => setForm({ ...form, targetAmount: e.target.value })}
           className="input w-full mb-2"
           required
+          min="1"
         />
         <input
           type="date"

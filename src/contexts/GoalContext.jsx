@@ -1,136 +1,135 @@
-import React, { createContext, useContext, useEffect, useReducer } from 'react';
-import * as api from '@/api/api';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
+import * as api from '@/api';
 
-const initialState = {
-  past: [],
-  present: {
+const GoalContext = createContext();
+
+export function GoalProvider({ children }) {
+  const [state, setState] = useState({
     goals: [],
     deposits: [],
     ui: {
       modalOpen: false,
       editingGoal: null,
       depositDrawerOpen: false,
-      depositGoalId: null
+      depositGoalId: null,
+    },
+    loading: true,
+    error: null,
+  });
+
+  const refreshData = useCallback(async () => {
+    setState(prev => ({ ...prev, loading: true, error: null }));
+    try {
+      const [goals, deposits] = await Promise.all([
+        api.fetchGoals(),
+        api.fetchDeposits()
+      ]);
+      setState(prev => ({ ...prev, goals, deposits, loading: false }));
+    } catch (error) {
+      setState(prev => ({ ...prev, error: error.message, loading: false }));
     }
-  },
-  future: []
-};
-
-function reducer(state, action) {
-  const { past, present, future } = state;
-  switch (action.type) {
-    case 'LOAD':
-      return {
-        past: [],
-        present: {
-          ...action.payload,
-          ui: { modalOpen: false, editingGoal: null, depositDrawerOpen: false, depositGoalId: null }
-        },
-        future: []
-      };
-    case 'OPEN_ADD_MODAL':
-      return { ...state, present: { ...present, ui: { ...present.ui, modalOpen: true } } };
-    case 'OPEN_EDIT_MODAL':
-      return { ...state, present: { ...present, ui: { ...present.ui, modalOpen: true, editingGoal: action.goal } } };
-    case 'CLOSE_MODAL':
-      return { ...state, present: { ...present, ui: { ...present.ui, modalOpen: false, editingGoal: null } } };
-    case 'OPEN_DEPOSIT_DRAWER':
-      return { ...state, present: { ...present, ui: { ...present.ui, depositDrawerOpen: true, depositGoalId: action.goalId } } };
-    case 'CLOSE_DEPOSIT_DRAWER':
-      return { ...state, present: { ...present, ui: { ...present.ui, depositDrawerOpen: false, depositGoalId: null } } };
-    case 'ADD_GOAL':
-      return { past: [...past, present], present: { ...present, goals: [...present.goals, action.goal] }, future: [] };
-    case 'UPDATE_GOAL':
-      return {
-        past: [...past, present],
-        present: {
-          ...present,
-          goals: present.goals.map(g => (g.id === action.id ? { ...g, ...action.changes } : g))
-        },
-        future: []
-      };
-    case 'DELETE_GOAL':
-      return {
-        past: [...past, present],
-        present: { ...present, goals: present.goals.filter(g => g.id !== action.id) },
-        future: []
-      };
-    case 'ADD_DEPOSIT':
-      return {
-        past: [...past, present],
-        present: {
-          ...present,
-          goals: present.goals.map(g =>
-            g.id === action.deposit.goalId
-              ? { ...g, savedAmount: g.savedAmount + action.deposit.amount }
-              : g
-          ),
-          deposits: [...present.deposits, action.deposit]
-        },
-        future: []
-      };
-    case 'UNDO':
-      if (!past.length) return state;
-      return { past: past.slice(0, -1), present: past[past.length - 1], future: [present, ...future] };
-    case 'REDO':
-      if (!future.length) return state;
-      return { past: [...past, present], present: future[0], future: future.slice(1) };
-    default:
-      return state;
-  }
-}
-
-const GoalContext = createContext();
-
-export function GoalProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    Promise.all([api.fetchGoals(), api.fetchDeposits()]).then(([goals, deposits]) =>
-      dispatch({ type: 'LOAD', payload: { goals, deposits } })
-    );
   }, []);
 
-  const actions = {
-    openAddModal: () => dispatch({ type: 'OPEN_ADD_MODAL' }),
-    openEditModal: goal => dispatch({ type: 'OPEN_EDIT_MODAL', goal }),
-    closeModal: () => dispatch({ type: 'CLOSE_MODAL' }),
-    openDepositDrawer: goalId => dispatch({ type: 'OPEN_DEPOSIT_DRAWER', goalId }),
-    closeDepositDrawer: () => dispatch({ type: 'CLOSE_DEPOSIT_DRAWER' }),
+  useEffect(() => {
+    refreshData();
+  }, [refreshData]);
 
-    addGoal: async goal => {
-      const newGoal = await api.addGoal({ ...goal, savedAmount: 0, createdAt: new Date().toISOString() });
-      dispatch({ type: 'ADD_GOAL', goal: newGoal });
-      dispatch({ type: 'CLOSE_MODAL' });
+  const actions = {
+    openAddModal: () => setState(prev => ({
+      ...prev,
+      ui: { ...prev.ui, modalOpen: true, editingGoal: null }
+    })),
+    
+    openEditModal: (editingGoal) => setState(prev => ({
+      ...prev,
+      ui: { ...prev.ui, modalOpen: true, editingGoal }
+    })),
+    
+    closeModal: () => setState(prev => ({
+      ...prev,
+      ui: { ...prev.ui, modalOpen: false, editingGoal: null }
+    })),
+    
+    openDepositDrawer: (depositGoalId) => setState(prev => ({
+      ...prev,
+      ui: { ...prev.ui, depositDrawerOpen: true, depositGoalId }
+    })),
+    
+    closeDepositDrawer: () => setState(prev => ({
+      ...prev,
+      ui: { ...prev.ui, depositDrawerOpen: false, depositGoalId: null }
+    })),
+    
+    addGoal: async (goalData) => {
+      try {
+        await api.createGoal(goalData);
+        await refreshData();
+        return true;
+      } catch (error) {
+        setState(prev => ({ ...prev, error: error.message }));
+        return false;
+      }
     },
-    updateGoal: async (id, changes) => {
-      const updated = await api.updateGoal(id, changes);
-      dispatch({ type: 'UPDATE_GOAL', id, changes: updated });
-      dispatch({ type: 'CLOSE_MODAL' });
+    
+    updateGoal: async (id, goalData) => {
+      try {
+        await api.updateGoal(id, goalData);
+        await refreshData();
+        return true;
+      } catch (error) {
+        setState(prev => ({ ...prev, error: error.message }));
+        return false;
+      }
     },
-    deleteGoal: async id => {
-      await api.deleteGoal(id);
-      dispatch({ type: 'DELETE_GOAL', id });
+    
+    deleteGoal: async (id) => {
+      try {
+        // Delete associated deposits first
+        const depositsToDelete = state.deposits
+          .filter(d => d.goalId === id)
+          .map(d => d.id);
+        
+        await Promise.all(depositsToDelete.map(api.deleteDeposit));
+        await api.deleteGoal(id);
+        await refreshData();
+        return true;
+      } catch (error) {
+        setState(prev => ({ ...prev, error: error.message }));
+        return false;
+      }
     },
+    
     addDeposit: async (goalId, amount) => {
-      const deposit = { goalId, amount, timestamp: new Date().toISOString() };
-      const savedDeposit = await api.addDeposit(deposit);
-      const goal = state.present.goals.find(g => g.id === goalId);
-      await api.updateGoal(goalId, { savedAmount: goal.savedAmount + amount });
-      dispatch({ type: 'ADD_DEPOSIT', deposit: savedDeposit });
-      dispatch({ type: 'CLOSE_DEPOSIT_DRAWER' });
+      try {
+        await api.createDeposit({
+          goalId,
+          amount,
+          timestamp: new Date().toISOString()
+        });
+        await refreshData();
+        return true;
+      } catch (error) {
+        setState(prev => ({ ...prev, error: error.message }));
+        return false;
+      }
     },
-    undo: () => dispatch({ type: 'UNDO' }),
-    redo: () => dispatch({ type: 'REDO' })
+    
+    refreshData
   };
 
+  const value = { state, actions };
+
   return (
-    <GoalContext.Provider
-      value={{ state: state.present, actions, canUndo: state.past.length > 0, canRedo: state.future.length > 0 }}
-    >
+    <GoalContext.Provider value={value}>
       {children}
     </GoalContext.Provider>
   );
 }
 
-export const useGoals = () => useContext(GoalContext);
+export function useGoals() {
+  const context = React.useContext(GoalContext);
+  if (context === undefined) {
+    throw new Error('useGoals must be used within a GoalProvider');
+  }
+  return context;
+}

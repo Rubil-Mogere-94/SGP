@@ -3,12 +3,17 @@ import { useGoals } from '@/contexts/GoalContext';
 
 export default function Deposits() {
   const { state } = useGoals();
+  
+  if (state.loading) return <div className="text-center py-8">Loading deposits...</div>;
+  if (state.error) return <div className="text-red-500 text-center py-8">Error: {state.error}</div>;
+
   const headers = [
     { label: 'ID', key: 'id' },
     { label: 'Goal ID', key: 'goalId' },
     { label: 'Amount', key: 'amount' },
     { label: 'Timestamp', key: 'timestamp' }
   ];
+  
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Transaction Log</h2>

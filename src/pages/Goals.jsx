@@ -5,6 +5,10 @@ import GoalCard from '@/components/GoalCard';
 export default function Goals() {
   const { state, actions } = useGoals();
   const [search, setSearch] = useState('');
+  
+  if (state.loading) return <div className="text-center py-8">Loading goals...</div>;
+  if (state.error) return <div className="text-red-500 text-center py-8">Error: {state.error}</div>;
+
   const filtered = state.goals.filter(g =>
     g.name.toLowerCase().includes(search.toLowerCase())
   );

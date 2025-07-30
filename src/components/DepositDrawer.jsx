@@ -11,6 +11,7 @@ export default function DepositDrawer() {
   }, [depositDrawerOpen]);
 
   if (!depositDrawerOpen) return null;
+  
   return (
     <div className="fixed bottom-0 left-0 w-full bg-white p-4 glass">
       <h2 className="text-lg font-semibold mb-2">Make a Deposit</h2>
@@ -44,7 +45,13 @@ export default function DepositDrawer() {
         <button onClick={actions.closeDepositDrawer} className="btn btn-outline">
           Cancel
         </button>
-        <button onClick={() => actions.addDeposit(depositGoalId, amount)} className="btn btn-primary">
+        <button 
+          onClick={() => {
+            actions.addDeposit(depositGoalId, amount);
+            actions.closeDepositDrawer();
+          }} 
+          className="btn btn-primary"
+        >
           Deposit
         </button>
       </div>
